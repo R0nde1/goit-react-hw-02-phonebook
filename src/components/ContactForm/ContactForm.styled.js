@@ -10,7 +10,7 @@ export const Form = styled.form`
     justify-content: center;
     margin-bottom: ${({ theme }) => theme.spacing(3)};
     padding: ${({ theme }) => theme.spacing(5, 0)};
-    background-color: #fafad2;
+    background-color: #e8eaeb;
 `;
 
 export const AddContact = styled.button`
