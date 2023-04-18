@@ -18,21 +18,23 @@ export class App extends Component {
     filter: ''
   }
   addContact = (newContact) => {
-    if (!this.isContactUnique(newContact)) {
-      toast.error(`${newContact.name} is already in contacts`);
-      return false;
+    if (this.isContactUnique(newContact)) {
+      toast.error(`${newContact.name} is already in contacts`);      
     }
     
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact]
-    }))
-    return true;
+    }))    
   }
-  deleteContact = (contactId) => this.setState(prevState => ({
-    ...prevState,
-    contacts: prevState.contacts.filter(({ id }) => id !== contactId)
-  }))
-  isContactUnique = (newContact) => !this.state.contacts.some(({ name }) => name.toLowerCase() === newContact.name.toLowerCase());
+
+  deleteContact = (contactId) => {
+    this.setState(prevState => {
+      const updatedContacts = prevState.contacts.filter(({ id }) => id !== contactId);
+      return { contacts: updatedContacts };
+    });
+  }
+
+  isContactUnique = (newContact) => this.state.contacts.some(({ name }) => name.toLowerCase() === newContact.name.toLowerCase());
   setFilter = (e) => this.setState({ filter: e.target.value });
   
   render () {
