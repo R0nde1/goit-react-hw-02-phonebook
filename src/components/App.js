@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { theme } from 'theme';
 
 import Container from './common/Container';
@@ -19,13 +19,22 @@ export class App extends Component {
   }
   addContact = (newContact) => {
     if (this.isContactUnique(newContact)) {
-      toast.error(`${newContact.name} is already in contacts`);      
+      return {
+        success: false,
+        message: `${newContact.name} is already in contacts`
+      };     
     }
     
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact]
-    }))    
+    }))  
+  
+    return {
+      success: true,
+      message: ''
+    };  
   }
+  
 
   deleteContact = (contactId) => {
     this.setState(prevState => {
